@@ -53,7 +53,7 @@ const About = () => {
               {values.map((value, index) => (
                 <div key={value.title} className="flex gap-4">
                   <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center flex-shrink-0">
-                    <value.icon className="w-6 h-6 text-white" />
+                    <value.icon className="w-6 h-6 text-foreground" />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-2">
@@ -91,10 +91,10 @@ const About = () => {
               </div>
               
               <div className="mt-8 p-6 bg-gradient-primary rounded-xl">
-                <h4 className="text-white font-semibold mb-2">
+                <h4 className="text-foreground font-semibold mb-2">
                   ¿Listo para empezar?
                 </h4>
-                <p className="text-white/80 text-sm">
+                <p className="text-foreground/80 text-sm">
                   Conversemos sobre tu proyecto sin compromiso
                 </p>
               </div>

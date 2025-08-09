@@ -42,10 +42,17 @@ export default {
 				
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
+					foreground: 'hsl(var(--foreground))',
 					glow: 'hsl(var(--primary-glow))'
 				},
-				secondary: 'hsl(var(--secondary))',
-				accent: 'hsl(var(--accent))',
+				secondary: {
+					DEFAULT: 'hsl(var(--secondary))',
+					foreground: 'hsl(var(--foreground))'
+				},
+				accent: {
+					DEFAULT: 'hsl(var(--accent))',
+					foreground: 'hsl(var(--foreground))'
+				},
 				
 				surface: 'hsl(var(--surface))',
 				'surface-glass': 'hsl(var(--surface-glass))',
