@@ -69,6 +69,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer components {
   .glass-card {
     @apply bg-surface/60 backdrop-blur-xl border shadow-lg;
