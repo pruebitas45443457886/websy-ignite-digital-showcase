@@ -8,13 +8,17 @@ import About from "@/components/About";
 import CTA from "@/components/CTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import WhatsAppBots from "@/components/WhatsAppBots";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
+      <WhatsAppFloatingButton />
       <main>
         <Hero />
+        <WhatsAppBots />
         <Services />
         <Projects />
         <Process />
