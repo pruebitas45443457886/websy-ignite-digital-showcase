@@ -9,11 +9,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, FolderKanban } from "lucide-react";
+import { LayoutDashboard, FolderKanban, CalendarClock, Activity } from "lucide-react";
 
 const items = [
   { title: "Resumen", url: "/admin", icon: LayoutDashboard },
   { title: "Proyectos", url: "/admin/projects", icon: FolderKanban },
+  { title: "Agendamientos", url: "/admin/appointments", icon: CalendarClock },
+  { title: "Tráfico", url: "/admin/traffic", icon: Activity },
 ];
 
 export function AdminSidebar() {

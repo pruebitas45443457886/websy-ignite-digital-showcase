@@ -10,27 +10,51 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import img1 from "@/assets/projects/project1.jpg";
+import img2 from "@/assets/projects/project2.jpg";
+import img3 from "@/assets/projects/project3.jpg";
 
 const schema = z.object({
   title: z.string().min(3),
   summary: z.string().min(10),
+  longDescription: z.string().min(20).optional(),
   tags: z.string().optional(),
   cover: z.any().optional(),
+  gallery: z.any().optional(),
 });
 
 type Project = {
   id: string;
   title: string;
   summary: string;
+  longDescription?: string;
   tags: string[];
   coverUrl?: string;
+  galleryUrls?: string[];
 };
 
 const initialProjects: Project[] = [
-  { id: "1", title: "Bot de WhatsApp para lead gen", summary: "Califica leads 24/7 y agenda citas automáticamente.", tags: ["WhatsApp", "Ventas", "n8n"], coverUrl: undefined },
-  { id: "2", title: "Carrito + pagos por WhatsApp", summary: "Catálogo, pedidos y cobros con flujos automáticos.", tags: ["Ecommerce", "Automatización"], coverUrl: undefined },
+  {
+    id: "1",
+    title: "Bot de WhatsApp para lead gen",
+    summary: "Califica leads 24/7 y agenda citas automáticamente.",
+    longDescription: "Implementación de bot conversacional que califica automáticamente leads, captura datos clave y agenda citas en el calendario. Integrado con CRM y flujos n8n.",
+    tags: ["WhatsApp", "Ventas", "n8n"],
+    coverUrl: img1,
+    galleryUrls: [img1, img2, img3],
+  },
+  {
+    id: "2",
+    title: "Carrito + pagos por WhatsApp",
+    summary: "Catálogo, pedidos y cobros con flujos automáticos.",
+    longDescription: "Sistema de ecommerce ligero en WhatsApp con catálogo, carrito, estado de pedido y cobros. Automatizaciones para seguimiento y remarketing.",
+    tags: ["Ecommerce", "Automatización"],
+    coverUrl: img2,
+    galleryUrls: [img2, img3, img1],
+  },
 ];
 
 export default function ProjectsAdmin() {
@@ -44,33 +68,44 @@ export default function ProjectsAdmin() {
     return projects.filter((p) => p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q)));
   }, [projects, query]);
 
-  const form = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema), defaultValues: { title: "", summary: "", tags: "", cover: undefined } });
+  const form = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema), defaultValues: { title: "", summary: "", longDescription: "", tags: "", cover: undefined, gallery: undefined } });
 
   const openCreate = () => {
     setEditing(null);
     form.reset({ title: "", summary: "", tags: "", cover: undefined });
   };
 
-  const openEdit = (p: Project) => {
-    setEditing(p);
-    form.reset({ title: p.title, summary: p.summary, tags: p.tags.join(", ") });
-  };
+const openEdit = (p: Project) => {
+  setEditing(p);
+  form.reset({ title: p.title, summary: p.summary, longDescription: p.longDescription || "", tags: p.tags.join(", ") });
+};
 
-  const onSubmit = (values: z.infer<typeof schema>) => {
-    const tags = (values.tags || "").split(",").map(t => t.trim()).filter(Boolean);
-    let coverUrl: string | undefined = undefined;
-    const file = (values.cover as FileList | undefined)?.[0];
-    if (file) coverUrl = URL.createObjectURL(file);
+const onSubmit = (values: z.infer<typeof schema>) => {
+  const tags = (values.tags || "").split(",").map(t => t.trim()).filter(Boolean);
+  const coverFile = (values.cover as FileList | undefined)?.[0];
+  let coverUrl: string | undefined = coverFile ? URL.createObjectURL(coverFile) : editing?.coverUrl;
 
-    if (editing) {
-      setProjects((prev) => prev.map((p) => p.id === editing.id ? { ...p, title: values.title, summary: values.summary, tags, coverUrl } : p));
-      toast({ title: "Proyecto actualizado (demo)", description: values.title });
-    } else {
-      const id = Math.random().toString(36).slice(2, 9);
-      setProjects((prev) => [{ id, title: values.title, summary: values.summary, tags, coverUrl }, ...prev]);
-      toast({ title: "Proyecto creado (demo)", description: values.title });
-    }
-  };
+  const galleryFiles = Array.from((values.gallery as FileList | undefined) ?? []);
+  const galleryUrls = galleryFiles.map((f) => URL.createObjectURL(f));
+  const longDescription = values.longDescription || "";
+
+  if (editing) {
+    setProjects((prev) => prev.map((p) => p.id === editing.id ? {
+      ...p,
+      title: values.title,
+      summary: values.summary,
+      longDescription,
+      tags,
+      coverUrl,
+      galleryUrls: galleryUrls.length ? galleryUrls : p.galleryUrls,
+    } : p));
+    toast({ title: "Proyecto actualizado (demo)", description: values.title });
+  } else {
+    const id = Math.random().toString(36).slice(2, 9);
+    setProjects((prev) => [{ id, title: values.title, summary: values.summary, longDescription, tags, coverUrl, galleryUrls }, ...prev]);
+    toast({ title: "Proyecto creado (demo)", description: values.title });
+  }
+};
 
   const onDelete = (id: string) => {
     setProjects((prev) => prev.filter((p) => p.id !== id));
@@ -135,6 +170,20 @@ export default function ProjectsAdmin() {
 
                   <FormField
                     control={form.control}
+                    name="longDescription"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Descripción larga</FormLabel>
+                        <FormControl>
+                          <Textarea rows={5} placeholder="Historia del proyecto, objetivos, arquitectura, KPIs..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
                     name="tags"
                     render={({ field }) => (
                       <FormItem>
@@ -155,6 +204,20 @@ export default function ProjectsAdmin() {
                         <FormLabel>Portada (opcional)</FormLabel>
                         <FormControl>
                           <Input type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files)} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="gallery"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Galería (múltiples imágenes opcional)</FormLabel>
+                        <FormControl>
+                          <Input multiple type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files)} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -215,73 +278,101 @@ export default function ProjectsAdmin() {
                           </Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-lg">
-                          <DialogHeader>
-                            <DialogTitle>Editar proyecto</DialogTitle>
-                            <DialogDescription>Actualiza los datos del proyecto.</DialogDescription>
-                          </DialogHeader>
-                          <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                              <FormField
-                                control={form.control}
-                                name="title"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel>Título</FormLabel>
-                                    <FormControl>
-                                      <Input placeholder="Bot de WhatsApp para ventas" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
+                        <DialogHeader>
+                          <DialogTitle>Editar proyecto</DialogTitle>
+                          <DialogDescription>Actualiza los datos del proyecto.</DialogDescription>
+                        </DialogHeader>
+                        <Form {...form}>
+                          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                            <FormField
+                              control={form.control}
+                              name="title"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Título</FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="Bot de WhatsApp para ventas" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
 
-                              <FormField
-                                control={form.control}
-                                name="summary"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel>Resumen</FormLabel>
-                                    <FormControl>
-                                      <Textarea rows={3} placeholder="Qué logra, resultados, automations..." {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
+                            <FormField
+                              control={form.control}
+                              name="summary"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Resumen</FormLabel>
+                                  <FormControl>
+                                    <Textarea rows={3} placeholder="Qué logra, resultados, automations..." {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
 
-                              <FormField
-                                control={form.control}
-                                name="tags"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel>Tags (separados por coma)</FormLabel>
-                                    <FormControl>
-                                      <Input placeholder="WhatsApp, Ventas, n8n" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
+                            <FormField
+                              control={form.control}
+                              name="longDescription"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Descripción larga</FormLabel>
+                                  <FormControl>
+                                    <Textarea rows={5} placeholder="Historia del proyecto, objetivos, arquitectura, KPIs..." {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
 
-                              <FormField
-                                control={form.control}
-                                name="cover"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel>Portada (opcional)</FormLabel>
-                                    <FormControl>
-                                      <Input type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files)} />
-                                    </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
+                            <FormField
+                              control={form.control}
+                              name="tags"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Tags (separados por coma)</FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="WhatsApp, Ventas, n8n" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
 
-                              <div className="flex justify-end gap-2">
-                                <Button type="submit">Guardar</Button>
-                              </div>
-                            </form>
-                          </Form>
+                            <FormField
+                              control={form.control}
+                              name="cover"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Portada (opcional)</FormLabel>
+                                  <FormControl>
+                                    <Input type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files)} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name="gallery"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Galería (múltiples imágenes opcional)</FormLabel>
+                                  <FormControl>
+                                    <Input multiple type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files)} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <div className="flex justify-end gap-2">
+                              <Button type="submit">Guardar</Button>
+                            </div>
+                          </form>
+                        </Form>
                         </DialogContent>
                       </Dialog>
 
