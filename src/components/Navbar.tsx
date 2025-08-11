@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const links = [
   { id: "inicio", label: "Inicio" },
@@ -38,7 +39,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-3">
+            <Link to="/login" className="text-sm text-foreground-muted hover:text-foreground transition-colors">Admin</Link>
             <Button className="btn-primary" onClick={() => handleScroll("contacto")}>Cotizar ahora</Button>
           </div>
 
@@ -51,11 +53,18 @@ const Navbar = () => {
           <div className="md:hidden mt-2 glass-card rounded-2xl p-4">
             <div className="flex flex-col gap-3">
               {links.map((l) => (
-                <button key={l.id} onClick={() => handleScroll(l.id)} className="text-left text-foreground-muted hover:text-foreground transition-colors">
+                <button
+                  key={l.id}
+                  onClick={() => handleScroll(l.id)}
+                  className="text-left text-foreground-muted hover:text-foreground transition-colors"
+                >
                   {l.label}
                 </button>
               ))}
-              <Button className="btn-primary" onClick={() => handleScroll("contacto")}>Cotizar ahora</Button>
+              <Link to="/login" className="text-left text-foreground-muted hover:text-foreground transition-colors">Admin</Link>
+              <Button className="btn-primary" onClick={() => handleScroll("contacto")}>
+                Cotizar ahora
+              </Button>
             </div>
           </div>
         )}
