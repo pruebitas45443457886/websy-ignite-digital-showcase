@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Brands from "@/components/Brands";
 import Services from "@/components/Services";
 import Projects from "@/components/Projects";
 import Process from "@/components/Process";
@@ -18,6 +19,7 @@ const Index = () => {
       <WhatsAppFloatingButton />
       <main>
         <Hero />
+        <Brands />
         <WhatsAppBots />
         <Services />
         <Projects />
