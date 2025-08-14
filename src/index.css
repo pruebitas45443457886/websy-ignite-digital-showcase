@@ -31,9 +31,13 @@
     --gradient-surface: linear-gradient(145deg, hsl(var(--surface)), hsl(var(--background-secondary)));
     
     /* Effects */
-    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
-    --shadow-elevation: 0 25px 50px -12px hsl(220 25% 10% / 0.8);
-    --blur-glass: blur(12px);
+  --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+  --shadow-elevation: 0 25px 50px -12px hsl(220 25% 10% / 0.8);
+  --blur-glass: blur(12px);
+  
+  /* Additional Surface Colors */
+  --surface-secondary: 225 25% 20%;
+  --surface-muted: 225 25% 16%;
     
     /* Border & Ring */
     --border: 215 27% 32%;
@@ -123,6 +127,15 @@ html {
       transform: translateY(0);
     }
   }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   
   .animate-float {
     animation: float 6s ease-in-out infinite;
@@ -131,12 +144,20 @@ html {
   .animate-scroll {
     animation: scroll 30s linear infinite;
   }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
   
   .animate-glow-pulse {
     animation: glow-pulse 2s ease-in-out infinite;
-  }
-  
-  .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out;
   }
 }
