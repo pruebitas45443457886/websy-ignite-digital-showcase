@@ -27,7 +27,7 @@ const Navbar = () => {
       <nav className="mx-auto max-w-7xl px-6">
         <div className="mt-4 glass-card rounded-2xl px-5 py-3 border flex items-center justify-between">
           <button onClick={() => handleScroll("inicio")} className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-primary" />
+            <img src="/images/websy-logo.png" alt="Websy Logo" className="w-10 h-10 rounded-full" />
             <span className="font-bold tracking-tight text-lg" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>Websy</span>
           </button>
 

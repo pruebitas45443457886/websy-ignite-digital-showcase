@@ -9,7 +9,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand section */}
           <div className="md:col-span-2">
-            <h3 className="text-3xl font-bold gradient-text mb-4">Websy</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <img src="/images/websy-logo.png" alt="Websy Logo" className="w-12 h-12 rounded-full" />
+              <h3 className="text-3xl font-bold gradient-text">Websy</h3>
+            </div>
             <p className="text-foreground-muted mb-6 max-w-md leading-relaxed">
               Desarrollamos soluciones digitales que impulsan el crecimiento de tu negocio. 
               Desde ideas simples hasta ecosistemas complejos.

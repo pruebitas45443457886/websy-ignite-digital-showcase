@@ -327,7 +327,7 @@ const Hero = () => {
           {/* Enhanced heading with ref for text splitting animation - improved layout */}
           <h1 
             ref={headingRef} 
-            className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight hero-heading"
+            className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight hero-heading italic"
             style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
           >
             <div className="flex flex-col items-center justify-center">
@@ -354,7 +354,7 @@ const Hero = () => {
           
           {/* Enhanced subtitle with scroll data attributes */}
           <p 
-            className="text-xl md:text-2xl lg:text-3xl text-foreground-muted mb-12 max-w-4xl mx-auto leading-relaxed font-light hero-subheading"
+            className="text-xl md:text-2xl lg:text-3xl text-foreground-muted mb-6 max-w-4xl mx-auto leading-relaxed font-light hero-subheading"
             data-scroll
             data-scroll-speed="0.2"
             style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
@@ -372,7 +372,7 @@ const Hero = () => {
           
           {/* Enhanced CTA Section with scroll data attributes and improved accessibility */}
           <div 
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 hero-cta"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-10 hero-cta"
             data-scroll
             data-scroll-speed="0.1"
           >
@@ -488,57 +488,6 @@ const Hero = () => {
               <div className="text-4xl font-black mb-3" style={{ color: COLORS.highlight }}>100%</div>
               <div className="text-foreground-muted font-medium">Satisfacción</div>
               <div className="text-sm text-foreground-subtle mt-1">O te devolvemos el dinero</div>
-            </div>
-          </div>
-
-          {/* Value proposition with scroll animation */}
-          <div 
-            className="mt-20 max-w-4xl mx-auto"
-            data-scroll
-            data-scroll-speed="0.1"
-          >
-            <div 
-              className="p-8 text-left"
-              style={{ 
-                background: `${COLORS.darkBackground}90`,
-                backdropFilter: 'blur(12px)',
-                border: `1px solid ${COLORS.mediumBackground}30`,
-                borderRadius: '12px',
-                boxShadow: `0 20px 40px -10px ${COLORS.darkBackground}80`
-              }}
-            >
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                ¿Por qué elegir Websy?
-              </h3>
-              <div 
-                className="grid md:grid-cols-3 gap-6 text-sm"
-                data-animate="container"
-              >
-                <div data-animate="item">
-                  <div className="font-semibold mb-2" style={{ color: COLORS.highlight }}>
-                    🚀 Tecnología de vanguardia
-                  </div>
-                  <div className="text-foreground-muted">
-                    Utilizamos las últimas tecnologías y frameworks para garantizar rendimiento excepcional.
-                  </div>
-                </div>
-                <div data-animate="item">
-                  <div className="font-semibold mb-2" style={{ color: COLORS.highlight }}>
-                    🤖 Automatización inteligente
-                  </div>
-                  <div className="text-foreground-muted">
-                    Integramos IA y automatización para optimizar procesos y maximizar resultados.
-                  </div>
-                </div>
-                <div data-animate="item">
-                  <div className="font-semibold mb-2" style={{ color: COLORS.highlight }}>
-                    💎 Calidad premium
-                  </div>
-                  <div className="text-foreground-muted">
-                    Cada proyecto es desarrollado con estándares enterprise y atención al detalle.
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           

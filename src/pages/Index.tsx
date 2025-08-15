@@ -15,6 +15,7 @@ import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
 import AdvancedQuote from "@/components/AdvancedQuote";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import { initLocomotiveScroll, animateHeroSection, animateSectionEntrance, animateStaggeredItems, COLORS } from "@/lib/animation";
 import gsap from "gsap";
 
@@ -52,6 +53,7 @@ const Index = () => {
       {/* Fix: Setting id and ensuring mainRef is properly attached */}
       <main ref={mainRef} id="scroll-container" data-scroll-container>
         <Hero />
+        <WhyChooseUs data-animate="section" />
         <Brands data-animate="section" />
         <WhatsAppBots data-animate="section" />
         <Services data-animate="section" />

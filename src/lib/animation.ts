@@ -37,66 +37,79 @@ export const COLORS = {
 let locoScroll: any = null;
 
 export const initLocomotiveScroll = () => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined') return null;
 
-  // Destroy any existing instance
-  if (locoScroll) {
-    locoScroll.destroy();
-  }
-
-  // Fix: Try to find the container by both selector and id
-  const scrollContainer = document.querySelector('[data-scroll-container]') || 
-                          document.getElementById('scroll-container');
-  
-  if (!scrollContainer) {
-    console.warn('Locomotive Scroll: No scroll container found. Make sure to add data-scroll-container to your main content wrapper.');
-    return;
-  }
-
-  console.log('Initializing Locomotive Scroll with container:', scrollContainer);
-  
-  // Initialize locomotive scroll
-  locoScroll = new LocomotiveScroll({
-    el: scrollContainer,
-    smooth: true,
-    multiplier: 1,
-    lerp: 0.05, // Linear interpolation, lower = smoother
-    smartphone: {
-      smooth: true,
-      multiplier: 1,
-    },
-    tablet: {
-      smooth: true,
-      multiplier: 1,
+  try {
+    // Destroy any existing instance
+    if (locoScroll) {
+      locoScroll.destroy();
     }
-  });
 
-  // Update ScrollTrigger when locomotive scroll updates
-  locoScroll.on('scroll', ScrollTrigger.update);
+    // Fix: Try to find the container by both selector and id
+    const scrollContainer = document.querySelector('[data-scroll-container]') || 
+                            document.getElementById('scroll-container');
+    
+    if (!scrollContainer) {
+      console.warn('Locomotive Scroll: No scroll container found. Make sure to add data-scroll-container to your main content wrapper.');
+      return null;
+    }
 
-  // Sync ScrollTrigger with locomotive scroll
-  ScrollTrigger.scrollerProxy(scrollContainer, {
-    scrollTop(value) {
-      return arguments.length 
-        ? locoScroll.scrollTo(value, 0, 0) 
-        : locoScroll.scroll.instance.scroll.y;
-    },
-    getBoundingClientRect() {
-      return {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-    },
-    pinType: (scrollContainer as HTMLElement).style.transform ? 'transform' : 'fixed',
-  });
+    console.log('Initializing Locomotive Scroll with container:', scrollContainer);
+    
+    // Initialize locomotive scroll
+    locoScroll = new LocomotiveScroll({
+      el: scrollContainer,
+      smooth: true,
+      multiplier: 1,
+      lerp: 0.05, // Linear interpolation, lower = smoother
+      smartphone: {
+        smooth: false,  // Disable smooth scroll on mobile
+        multiplier: 1,
+      },
+      tablet: {
+        smooth: false,  // Disable smooth scroll on tablets
+        multiplier: 1,
+      }
+    });
 
-  // Refresh ScrollTrigger and LocomotiveScroll
-  ScrollTrigger.addEventListener('refresh', () => locoScroll.update());
-  ScrollTrigger.refresh();
+    // Update ScrollTrigger when locomotive scroll updates
+    locoScroll.on('scroll', ScrollTrigger.update);
 
-  return locoScroll;
+    // Sync ScrollTrigger with locomotive scroll
+    ScrollTrigger.scrollerProxy(scrollContainer, {
+      scrollTop(value) {
+        if (!locoScroll || !locoScroll.scroll || !locoScroll.scroll.instance) {
+          return arguments.length ? window.scrollTo(0, value) : window.pageYOffset;
+        }
+        return arguments.length 
+          ? locoScroll.scrollTo(value, 0, 0) 
+          : locoScroll.scroll.instance.scroll.y;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+      pinType: (scrollContainer as HTMLElement).style.transform ? 'transform' : 'fixed',
+    });
+
+    // Refresh ScrollTrigger and LocomotiveScroll
+    ScrollTrigger.addEventListener('refresh', () => {
+      if (locoScroll && locoScroll.update) {
+        locoScroll.update();
+      }
+    });
+    
+    ScrollTrigger.refresh();
+
+    return locoScroll;
+  } catch (error) {
+    console.error("Error initializing Locomotive Scroll:", error);
+    return null;
+  }
 };
 
 // Text animation with split text

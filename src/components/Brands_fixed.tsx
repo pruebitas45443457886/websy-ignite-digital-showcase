@@ -3,18 +3,6 @@ import { Star, Award, TrendingUp, Users, Shield, Zap, Globe, Code, Brain, Databa
 import premiumBrands from "@/assets/premium-brands.png";
 import { COLORS } from "@/lib/animation";
 
-// Add floating animation
-const floatingAnimation = `
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-`;
-
 const services = [
   {
     icon: Globe,
@@ -159,8 +147,6 @@ const realBrands = [
   }
 ];
 
-
-
 const Brands = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -177,9 +163,6 @@ const Brands = () => {
 
   return (
     <section className="py-32 bg-gradient-to-br from-surface via-surface-secondary to-surface-muted relative overflow-hidden">
-      {/* Add our custom animation styles */}
-      <style dangerouslySetInnerHTML={{ __html: floatingAnimation }} />
-      
       {/* Advanced Background Effects */}
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
@@ -237,35 +220,14 @@ const Brands = () => {
                   onMouseLeave={() => setActiveService(null)}
                 >
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="p-4 rounded-2xl bg-gradient-to-br from-[#FD1F34]/20 via-[#FD1F34]/15 to-[#FD1F34]/25 group-hover:from-[#FD1F34]/30 group-hover:via-[#FD1F34]/25 group-hover:to-[#FD1F34]/40 transition-all duration-500 shadow-[0_8px_20px_-6px_rgba(253,31,52,0.5)] relative overflow-hidden">
-                      {/* Animated background elements */}
-                      <div className="absolute inset-0 opacity-30">
-                        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(253,31,52,0.4)_0%,transparent_50%)]"></div>
-                        <div className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#FD1F34]/20 animate-pulse"></div>
-                        <div className="absolute top-1/2 left-1/4 w-4 h-4 rounded-full bg-[#FD1F34]/30 animate-ping" style={{animationDuration: '3s'}}></div>
-                      </div>
-                      
-                      <IconComponent className="w-10 h-10 text-[#FD1F34] group-hover:scale-125 transition-all duration-500 relative z-10 drop-shadow-[0_0_8px_rgba(253,31,52,0.8)]" 
-                        style={{
-                          filter: "drop-shadow(0 0 3px rgba(253, 31, 52, 0.5))"
-                        }}
-                      />
-                      
-                      {/* Subtle glow effect */}
-                      <div className="absolute inset-0 bg-[#FD1F34]/10 blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 rounded-full"></div>
+                    <div className="p-3 rounded-xl bg-gradient-to-br from-[#FD1F34]/20 to-[#FD1F34]/30 group-hover:from-[#FD1F34]/30 group-hover:to-[#FD1F34]/40 transition-all duration-500 shadow-md">
+                      <IconComponent className="w-8 h-8 text-[#FD1F34] group-hover:scale-110 transition-transform duration-300" />
                     </div>
-                    
                     <div>
-                      <h4 className="font-bold text-foreground text-lg group-hover:text-[#FD1F34] transition-all flex items-center">
-                        {service.title}
-                        <span className="ml-2 inline-block w-2 h-2 rounded-full bg-[#FD1F34] animate-pulse"></span>
-                      </h4>
+                      <h4 className="font-bold text-foreground text-lg group-hover:text-[#FD1F34] transition-all">{service.title}</h4>
                       <p className="text-sm text-foreground-muted group-hover:text-foreground transition-colors">{service.shortDesc}</p>
                     </div>
-                    
-                    <div className="ml-auto bg-gradient-to-r from-[#FD1F34]/20 to-[#FD1F34]/5 p-2 rounded-full group-hover:shadow-[0_0_15px_rgba(253,31,52,0.3)] transition-all duration-300">
-                      <ChevronRight className={`w-5 h-5 text-[#FD1F34] transition-transform duration-500 ${activeService === index ? 'rotate-90 scale-110' : ''}`} />
-                    </div>
+                    <ChevronRight className={`w-5 h-5 text-[#FD1F34] ml-auto transition-transform duration-300 ${activeService === index ? 'rotate-90' : ''}`} />
                   </div>
                   
                   <div className={`overflow-hidden transition-all duration-500 ${
@@ -324,73 +286,37 @@ const Brands = () => {
             {realBrands.slice(0, 6).map((brand, index) => (
               <div
                 key={brand.name}
-                className={`glass-card p-8 group cursor-pointer transition-all duration-700 hover:scale-105 hover:shadow-glow hover:border-[#FD1F34]/50 ${
-                  activeTestimonial === index ? 'scale-105 shadow-[0_0_30px_rgba(253,31,52,0.3)] border-[#FD1F34]/70 bg-gradient-to-br from-[#FD1F34]/15 to-[#FD1F34]/5' : ''
-                } ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'} backdrop-blur-sm`}
+                className={`glass-card p-8 group cursor-pointer transition-all duration-700 hover:scale-105 hover:shadow-glow hover:border-[#FD1F34]/30 ${
+                  activeTestimonial === index ? 'scale-105 shadow-glow border-[#FD1F34]/50 bg-gradient-to-br from-[#FD1F34]/10 to-[#FD1F34]/5' : ''
+                } ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'}`}
                 style={{ animationDelay: `${index * 0.15}s` }}
                 onClick={() => setActiveTestimonial(index)}
                 onMouseEnter={() => setHoveredBrand(index)}
                 onMouseLeave={() => setHoveredBrand(null)}
               >
-                {/* Fancy top corner accent */}
-                <div className="absolute -top-1 -right-1 w-12 h-12 overflow-hidden">
-                  <div className="absolute transform rotate-45 bg-gradient-to-br from-[#FD1F34] to-[#FD1F34]/80 shadow-lg text-white w-16 h-16 -top-8 -right-8"></div>
-                </div>
-                
-                <div className="flex items-center gap-4 mb-8 relative">
-                  <div className="p-6 rounded-2xl bg-gradient-to-br from-[#FD1F34]/20 via-[#FD1F34]/15 to-[#FD1F34]/5 group-hover:from-[#FD1F34]/40 group-hover:via-[#FD1F34]/30 group-hover:to-[#FD1F34]/20 transition-all duration-500 shadow-[0_8px_25px_-5px_rgba(253,31,52,0.4)] relative overflow-hidden">
-                    {/* Animated background elements for emoji container */}
-                    <div className="absolute inset-0 opacity-30">
-                      <div className="absolute -top-5 -left-5 w-20 h-20 bg-[radial-gradient(circle,rgba(253,31,52,0.5)_0%,transparent_60%)]"></div>
-                      <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-[#FD1F34]/20 animate-ping" style={{animationDuration: '4s'}}></div>
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border-2 border-[#FD1F34]/10 rounded-full animate-pulse scale-50 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-1000"></div>
-                    </div>
-                    
-                    <div className="text-5xl md:text-6xl group-hover:scale-125 transition-transform duration-500 relative z-10 animate-float">
-                      <div className="relative inline-block">
-                        {brand.logo}
-                        <div className="absolute -inset-2 bg-[#FD1F34]/10 blur-xl opacity-30 group-hover:opacity-100 transition-opacity rounded-full"></div>
-                      </div>
-                      
-                      {/* 3D-like shadow effect */}
-                      <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-black/10 blur-md rounded-full transform scale-x-75"></div>
-                    </div>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="text-5xl group-hover:scale-110 transition-transform duration-500 filter group-hover:drop-shadow-lg">
+                    {brand.logo}
                   </div>
-                  
                   <div>
-                    <h4 className="font-bold text-foreground text-lg group-hover:text-[#FD1F34] transition-all flex items-center gap-2">
-                      {brand.name}
-                      <div className="relative w-4 h-4">
-                        <div className="absolute inset-0 bg-[#FD1F34]/60 rounded-full animate-ping" style={{animationDuration: '2s'}}></div>
-                        <div className="absolute inset-0.5 bg-[#FD1F34] rounded-full"></div>
-                      </div>
-                    </h4>
-                    <p className="text-sm text-foreground-muted group-hover:text-foreground transition-colors flex items-center gap-1.5">
-                      <span className="inline-block w-2 h-2 rounded-full bg-[#FD1F34] animate-pulse"></span>
-                      {brand.industry}
-                    </p>
+                    <h4 className="font-bold text-foreground text-lg group-hover:text-[#FD1F34] transition-all">{brand.name}</h4>
+                    <p className="text-sm text-foreground-muted group-hover:text-foreground transition-colors">{brand.industry}</p>
                   </div>
                 </div>
                 
-                <div className="mb-8 pb-6 border-b border-[#FD1F34]/10">
-                  <div className="text-3xl font-black text-[#FD1F34] mb-4 group-hover:scale-110 transition-transform flex items-center gap-2" style={{ textShadow: "0 0 15px rgba(253, 31, 52, 0.4)" }}>
-                    <TrendingUp className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-                    <span>{brand.result}</span>
+                <div className="mb-6">
+                  <div className="text-3xl font-black text-[#FD1F34] mb-3 group-hover:scale-105 transition-transform" style={{ textShadow: "0 0 10px rgba(253, 31, 52, 0.3)" }}>
+                    {brand.result}
                   </div>
-                  <div className="relative">
-                    <p className="text-sm text-foreground-muted italic leading-relaxed px-4 py-3 bg-[#FD1F34]/5 rounded-xl border-l-4 border-[#FD1F34]/30">
-                      "{brand.testimonial}"
-                    </p>
-                    <div className="absolute -left-2 -top-2 text-[#FD1F34] opacity-20 text-3xl">"</div>
-                    <div className="absolute -right-2 -bottom-2 text-[#FD1F34] opacity-20 text-3xl">"</div>
-                  </div>
+                  <p className="text-sm text-foreground-muted italic leading-relaxed">
+                    "{brand.testimonial}"
+                  </p>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-4">
                   <div className="flex flex-wrap gap-2">
                     {brand.services.map((service, idx) => (
-                      <span key={idx} className="px-3 py-1.5 rounded-full text-xs font-medium bg-gradient-to-r from-[#FD1F34]/20 to-[#FD1F34]/5 text-[#FD1F34] border border-[#FD1F34]/20 hover:from-[#FD1F34]/40 hover:to-[#FD1F34]/20 hover:border-[#FD1F34]/40 transition-all duration-300 flex items-center gap-1.5 shadow-sm">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FD1F34] inline-block"></span>
+                      <span key={idx} className="px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-[#FD1F34]/20 to-[#FD1F34]/10 text-[#FD1F34] border border-[#FD1F34]/20">
                         {service}
                       </span>
                     ))}
@@ -400,20 +326,51 @@ const Brands = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-[#FD1F34] fill-current group-hover:scale-110 hover:scale-125 transition-transform cursor-pointer" 
-                        style={{
-                          filter: "drop-shadow(0 0 3px rgba(253, 31, 52, 0.5))",
-                          transitionDelay: `${i * 50}ms`
-                        }} 
-                      />
+                      <Star key={i} className="w-4 h-4 text-[#FD1F34] fill-current group-hover:scale-110 transition-transform" style={{transitionDelay: `${i * 50}ms`}} />
                     ))}
                   </div>
-                  <div className="bg-gradient-to-r from-[#FD1F34]/20 to-[#FD1F34]/5 p-1.5 rounded-full hover:shadow-[0_0_10px_rgba(253,31,52,0.3)] transition-shadow">
-                    <Info className={`w-5 h-5 transition-all duration-300 ${hoveredBrand === index ? 'text-[#FD1F34] scale-125' : 'text-[#FD1F34]/70'}`} />
-                  </div>
+                  <Info className={`w-5 h-5 text-foreground-muted transition-all duration-300 ${hoveredBrand === index ? 'text-[#FD1F34] scale-110' : ''}`} />
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Enhanced Premium testimonial showcase */}
+        <div className="glass-card p-12 md:p-16 mb-24 text-center shadow-glow border border-[#FD1F34]/20 bg-gradient-to-br from-[#FD1F34]/5 to-[#FD1F34]/2 relative">
+          <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
+            <span 
+              className="text-sm font-semibold text-[#FD1F34] px-8 py-3 glass-card rounded-full"
+              style={{ 
+                textShadow: "0 0 5px rgba(253, 31, 52, 0.5)"
+              }}
+            >
+              TESTIMONIOS DESTACADOS
+            </span>
+          </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-8xl md:text-9xl mb-8 opacity-20 text-[#FD1F34]">"</div>
+            <blockquote className="text-2xl md:text-4xl lg:text-5xl font-light text-foreground leading-relaxed mb-12 animate-fade-in">
+              {realBrands[activeTestimonial].testimonial}
+            </blockquote>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+              <div className="text-5xl md:text-6xl animate-bounce">{realBrands[activeTestimonial].logo}</div>
+              <div className="text-center md:text-left">
+                <div className="font-bold text-foreground text-xl md:text-2xl text-[#FD1F34] mb-2">
+                  {realBrands[activeTestimonial].name}
+                </div>
+                <div className="text-foreground-muted text-lg">
+                  {realBrands[activeTestimonial].industry} • {realBrands[activeTestimonial].result}
+                </div>
+                <div className="flex flex-wrap gap-2 mt-3 justify-center md:justify-start">
+                  {realBrands[activeTestimonial].services.map((service, idx) => (
+                    <span key={idx} className="px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-[#FD1F34]/30 to-[#FD1F34]/20 text-[#FD1F34] border border-[#FD1F34]/30">
+                      {service}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -434,41 +391,24 @@ const Brands = () => {
         </div>
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           <div className="glass-card p-8 md:p-10 text-center group hover:scale-105 transition-all duration-500 hover:shadow-glow hover:border-[#FD1F34]/30 hover:bg-gradient-to-br hover:from-[#FD1F34]/5 hover:to-[#FD1F34]/2">
-            <div className="relative inline-block mb-6">
-              <div className="absolute -inset-3 bg-[#FD1F34]/10 rounded-full blur-xl opacity-50 group-hover:opacity-100 group-hover:bg-[#FD1F34]/20 transition-all"></div>
-              <div className="p-4 rounded-full bg-gradient-to-br from-[#FD1F34]/20 via-[#FD1F34]/10 to-[#FD1F34]/5 group-hover:from-[#FD1F34]/30 group-hover:via-[#FD1F34]/20 group-hover:to-[#FD1F34]/10 transition-all duration-500 shadow-[0_8px_25px_-5px_rgba(253,31,52,0.3)] relative">
-                <div className="text-5xl md:text-6xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg animate-float">🏆</div>
-              </div>
-            </div>
-            <div className="font-bold text-foreground text-xl md:text-2xl mb-4 group-hover:text-[#FD1F34] transition-all" style={{ textShadow: "0 0 10px rgba(253, 31, 52, 0.3)" }}>Premio Innovación 2024</div>
+            <div className="text-5xl md:text-6xl mb-6 group-hover:scale-110 transition-transform duration-500 filter group-hover:drop-shadow-lg">🏆</div>
+            <div className="font-bold text-foreground text-xl md:text-2xl mb-4 group-hover:text-[#FD1F34] transition-all">Premio Innovación 2024</div>
             <div className="text-foreground-muted leading-relaxed">
               Reconocidos como la mejor agencia de desarrollo web y automatización de España por la excelencia en nuestros proyectos
             </div>
           </div>
           
           <div className="glass-card p-8 md:p-10 text-center group hover:scale-105 transition-all duration-500 hover:shadow-glow hover:border-[#FD1F34]/30 hover:bg-gradient-to-br hover:from-[#FD1F34]/5 hover:to-[#FD1F34]/2">
-            <div className="relative inline-block mb-6">
-              <div className="absolute -inset-3 bg-[#FD1F34]/10 rounded-full blur-xl opacity-50 group-hover:opacity-100 group-hover:bg-[#FD1F34]/20 transition-all"></div>
-              <div className="p-4 rounded-full bg-gradient-to-br from-[#FD1F34]/20 via-[#FD1F34]/10 to-[#FD1F34]/5 group-hover:from-[#FD1F34]/30 group-hover:via-[#FD1F34]/20 group-hover:to-[#FD1F34]/10 transition-all duration-500 shadow-[0_8px_25px_-5px_rgba(253,31,52,0.3)] relative">
-                <div className="text-5xl md:text-6xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg animate-float">⭐</div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#FD1F34]/30 rounded-full blur-md animate-pulse"></div>
-              </div>
-            </div>
-            <div className="font-bold text-foreground text-xl md:text-2xl mb-4 group-hover:text-[#FD1F34] transition-all" style={{ textShadow: "0 0 10px rgba(253, 31, 52, 0.3)" }}>5.0 estrellas perfectas</div>
+            <div className="text-5xl md:text-6xl mb-6 group-hover:scale-110 transition-transform duration-500 filter group-hover:drop-shadow-lg">⭐</div>
+            <div className="font-bold text-foreground text-xl md:text-2xl mb-4 group-hover:text-[#FD1F34] transition-all">5.0 estrellas perfectas</div>
             <div className="text-foreground-muted leading-relaxed">
               Basado en +500 reseñas verificadas de Google, Clutch y Trustpilot de clientes reales satisfechos
             </div>
           </div>
           
           <div className="glass-card p-8 md:p-10 text-center group hover:scale-105 transition-all duration-500 hover:shadow-glow hover:border-[#FD1F34]/30 hover:bg-gradient-to-br hover:from-[#FD1F34]/5 hover:to-[#FD1F34]/2">
-            <div className="relative inline-block mb-6">
-              <div className="absolute -inset-3 bg-[#FD1F34]/10 rounded-full blur-xl opacity-50 group-hover:opacity-100 group-hover:bg-[#FD1F34]/20 transition-all"></div>
-              <div className="p-4 rounded-full bg-gradient-to-br from-[#FD1F34]/20 via-[#FD1F34]/10 to-[#FD1F34]/5 group-hover:from-[#FD1F34]/30 group-hover:via-[#FD1F34]/20 group-hover:to-[#FD1F34]/10 transition-all duration-500 shadow-[0_8px_25px_-5px_rgba(253,31,52,0.3)] relative">
-                <div className="text-5xl md:text-6xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg animate-float">🔒</div>
-                <div className="absolute -top-1 -left-1 w-4 h-4 bg-[#FD1F34]/30 rounded-full blur-md animate-ping" style={{animationDuration: '3s'}}></div>
-              </div>
-            </div>
-            <div className="font-bold text-foreground text-xl md:text-2xl mb-4 group-hover:text-[#FD1F34] transition-all" style={{ textShadow: "0 0 10px rgba(253, 31, 52, 0.3)" }}>Certificaciones Enterprise</div>
+            <div className="text-5xl md:text-6xl mb-6 group-hover:scale-110 transition-transform duration-500 filter group-hover:drop-shadow-lg">🔒</div>
+            <div className="font-bold text-foreground text-xl md:text-2xl mb-4 group-hover:text-[#FD1F34] transition-all">Certificaciones Enterprise</div>
             <div className="text-foreground-muted leading-relaxed">
               ISO 27001, SOC 2 y PCI DSS. Máxima seguridad empresarial para proyectos críticos y datos sensibles
             </div>
@@ -505,17 +445,11 @@ const Brands = () => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="text-lg px-8 py-4 shadow-glow hover:scale-105 transition-all duration-300 bg-[#FD1F34] text-white font-bold rounded-lg flex items-center justify-center relative overflow-hidden group">
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#FD1F34]/80 to-[#FD1F34] transition-all duration-300 transform group-hover:scale-110 group-hover:opacity-90"></span>
-                <div className="relative mr-3">
-                  <Zap className="w-6 h-6 relative z-10" />
-                  <div className="absolute -inset-1 bg-white/30 rounded-full blur-md animate-pulse"></div>
-                </div>
+                <Zap className="mr-3 w-6 h-6 relative z-10" />
                 <span className="relative z-10">Empezar mi transformación</span>
               </button>
               <button className="text-lg px-8 py-4 hover:scale-105 transition-all duration-300 bg-transparent border-2 border-[#FD1F34]/50 text-[#FD1F34] font-bold rounded-lg flex items-center justify-center hover:bg-[#FD1F34]/10">
-                <div className="relative mr-3">
-                  <Users className="w-6 h-6 relative z-10" />
-                  <div className="absolute -inset-1 bg-[#FD1F34]/20 rounded-full blur-md animate-pulse opacity-50"></div>
-                </div>
+                <Users className="mr-3 w-6 h-6" />
                 Ver todos los casos
               </button>
             </div>

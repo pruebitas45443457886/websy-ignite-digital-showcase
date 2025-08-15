@@ -230,8 +230,11 @@ const AdvancedQuote = () => {
         }
       ];
       
+      // Ensure we have a proper projectType label
+      const projectLabel = projectTypes.find(p => p.id === projectType)?.label || 'Proyecto';
+      
       setGeneratedQuote({
-        projectType: projectTypes.find(p => p.id === projectType)?.label,
+        projectType: projectLabel,
         timeline: timeline,
         packages: packages
       });
@@ -327,7 +330,16 @@ const AdvancedQuote = () => {
                 <CardFooter>
                   <Button 
                     className="w-full"
-                    onClick={() => setStep(quoteType === 'auto' ? 6 : 2)}
+                    onClick={() => {
+                      // Initialize empty state before transitioning
+                      setGeneratedQuote(null);
+                      
+                      if (quoteType === 'auto') {
+                        setStep(6);
+                      } else {
+                        setStep(2);
+                      }
+                    }}
                   >
                     Cotizar ahora <Zap className="ml-2 h-4 w-4" />
                   </Button>
@@ -730,7 +742,7 @@ const AdvancedQuote = () => {
                   // Auto quote result - packages
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {generatedQuote.packages.map((pkg: any, i: number) => (
+                      {generatedQuote.packages && generatedQuote.packages.map((pkg: any, i: number) => (
                         <Card 
                           key={i}
                           className={`overflow-hidden transition-all ${pkg.recommended ? 'ring-2 ring-primary shadow-lg scale-105' : ''}`}
@@ -760,7 +772,7 @@ const AdvancedQuote = () => {
                                 Tiempo estimado: {generatedQuote.timeline}
                               </div>
                               
-                              {pkg.features.map((feature: string, i: number) => (
+                              {pkg.features && pkg.features.map((feature: string, i: number) => (
                                 <div key={i} className="flex items-start gap-2">
                                   <CheckCircle2 className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
                                   <span className="text-sm">{feature}</span>
