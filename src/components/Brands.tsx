@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Star, Award, TrendingUp, Users, Shield, Zap, Globe, Code, Brain, Database, Smartphone, Lock, ChevronRight, Info } from "lucide-react";
 import premiumBrands from "@/assets/premium-brands.png";
+import { COLORS } from "@/lib/animation";
 
 const services = [
   {
@@ -197,15 +198,29 @@ const Brands = () => {
           </div>
           
           <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
-            <span className="block text-foreground mb-4 animate-fade-in-up" style={{animationDelay: '0.2s'}}>+500 marcas</span>
-            <span className="block gradient-text animate-fade-in-up" style={{animationDelay: '0.4s'}}>transformadas</span>
+            <div className="relative inline-block animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+              <div className="flex items-center justify-center">
+                <span className="text-foreground mb-2 px-4 py-2 rounded-lg" style={{
+                  background: `${COLORS.darkBackground}90`,
+                  backdropFilter: 'blur(8px)',
+                  boxShadow: `0 10px 30px -5px ${COLORS.darkBackground}50`
+                }}>+500 marcas</span>
+              </div>
+              <div className="mt-4">
+                <span className="gradient-text animate-fade-in-up px-8 py-4 rounded-lg" style={{
+                  animationDelay: '0.4s',
+                  background: `linear-gradient(135deg, ${COLORS.darkBackground}50, ${COLORS.mediumBackground}50)`,
+                  boxShadow: `0 10px 30px -5px ${COLORS.highlight}30`
+                }}>transformadas</span>
+              </div>
+            </div>
           </h2>
           
-          <p className="text-xl md:text-2xl lg:text-3xl text-foreground-muted max-w-5xl mx-auto leading-relaxed animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+          <div className="text-xl md:text-2xl lg:text-3xl text-foreground-muted max-w-5xl mx-auto leading-relaxed animate-fade-in-up bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-xl" style={{animationDelay: '0.6s', backdropFilter: 'blur(8px)'}}>
             Desde startups disruptivas hasta Fortune 500, ayudamos a las marcas más 
             <span className="gradient-text font-semibold"> innovadoras del mundo</span> a 
             dominar el espacio digital con tecnología de vanguardia.
-          </p>
+          </div>
         </div>
 
         {/* Enhanced Achievements Grid */}

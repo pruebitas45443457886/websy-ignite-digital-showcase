@@ -6,19 +6,52 @@
 
 /* Websy Design System - Modern tech aesthetic with gradients and glassmorphism */
 
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/Helvetica.woff2') format('woff2'),
+       url('/fonts/Helvetica.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/Helvetica-Bold.woff2') format('woff2'),
+       url('/fonts/Helvetica-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Helvetica Neue fallbacks */
+@font-face {
+  font-family: 'Helvetica';
+  src: local('Helvetica Neue'), local('HelveticaNeue');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold');
+  font-weight: bold;
+  font-style: normal;
+}
+
 @layer base {
   :root {
-    /* Brand Colors */
-    --primary: 250 84% 54%;
-    --primary-glow: 250 100% 76%;
-    --secondary: 270 95% 75%;
-    --accent: 210 100% 56%;
+    /* Brand Colors - Based on the provided HEX colors */
+    --primary: 178 26% 13%;     /* #182A2C */
+    --primary-glow: 178 26% 20%; 
+    --secondary: 180 15% 23%;   /* #344445 */
+    --accent: 0 0% 33%;        /* #555555 */
     
     /* Background System */
-    --background: 222 47% 11%;
-    --background-secondary: 225 25% 15%;
-    --surface: 225 25% 18%;
-    --surface-glass: 225 25% 18% / 0.6;
+    --background: 178 26% 13%;   /* #182A2C */
+    --background-secondary: 180 15% 23%; /* #344445 */
+    --surface: 178 26% 16%;
+    --surface-glass: 178 26% 16% / 0.6;
     
     /* Text Colors */
     --foreground: 210 40% 98%;
@@ -65,7 +98,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Helvetica', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif;
     background: hsl(var(--background));
     background-image: 
       radial-gradient(circle at 20% 20%, hsl(var(--primary) / 0.1) 0%, transparent 50%),

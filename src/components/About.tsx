@@ -5,23 +5,26 @@ const values = [
   {
     icon: Users,
     title: "Equipo experto",
-    description: "Desarrolladores senior con años de experiencia en tecnologías modernas."
+    description: "Desarrolladores senior con años de experiencia en tecnologías modernas.",
+    emoji: "👨‍💻" // Adding custom emojis instead of generic icons
   },
   {
     icon: Lightbulb,
     title: "Innovación constante",
-    description: "Siempre al día con las últimas tendencias y mejores prácticas del sector."
+    description: "Siempre al día con las últimas tendencias y mejores prácticas del sector.",
+    emoji: "💡"
   },
   {
     icon: Rocket,
     title: "Entrega rápida",
-    description: "Metodologías ágiles que garantizan entregas puntuales y de calidad."
+    description: "Metodologías ágiles que garantizan entregas puntuales y de calidad.",
+    emoji: "🚀"
   }
 ];
 
 const achievements = [
-  "5+ años de experiencia",
-  "50+ proyectos completados",
+  "+500 marcas transformadas", // Added the new text about 500+ brands
+  "Desde startups a Fortune 500",
   "Clientes en 10+ países",
   "98% tasa de satisfacción",
   "Soporte 24/7 garantizado",
@@ -40,20 +43,31 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="animate-fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">¿Por qué elegir</span>
-              <br />
-              Websy?
+              <div className="relative inline-block">
+                <span className="gradient-text text-6xl md:text-7xl absolute -left-5 top-0 transform -translate-y-1/4">N</span>
+                <span className="ml-8 gradient-text">en</span>
+              </div>
+              <span className="gradient-text ml-2">NOSOTROS</span>
             </h2>
-            <p className="text-xl text-foreground-muted mb-8 leading-relaxed">
-              Somos más que una agencia de desarrollo. Somos tu socio tecnológico 
-              comprometido con hacer realidad tus ideas más ambiciosas.
-            </p>
+            
+            <div className="bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl p-6 mb-8">
+              <div className="flex items-center gap-4 mb-3">
+                <span className="text-4xl">🏆</span>
+                <h3 className="text-3xl font-bold gradient-text">+500 marcas transformadas</h3>
+              </div>
+              <p className="text-xl text-foreground-muted leading-relaxed">
+                Desde startups disruptivas hasta Fortune 500, ayudamos a las marcas más innovadoras 
+                del mundo a dominar el espacio digital con tecnología de vanguardia.
+              </p>
+            </div>
             
             <div className="space-y-6 mb-8">
               {values.map((value, index) => (
                 <div key={value.title} className="flex gap-4">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center flex-shrink-0">
-                    <value.icon className="w-6 h-6 text-foreground" />
+                  <div className="w-14 h-14 bg-gradient-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="text-2xl animate-float" style={{animationDelay: `${index * 0.2}s`}}>
+                      {value.emoji}
+                    </div>
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-2">

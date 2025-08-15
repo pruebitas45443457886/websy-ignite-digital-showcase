@@ -28,12 +28,17 @@ const Navbar = () => {
         <div className="mt-4 glass-card rounded-2xl px-5 py-3 border flex items-center justify-between">
           <button onClick={() => handleScroll("inicio")} className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-gradient-primary" />
-            <span className="font-bold tracking-tight text-lg">Websy</span>
+            <span className="font-bold tracking-tight text-lg" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>Websy</span>
           </button>
 
           <div className="hidden md:flex items-center gap-8">
             {links.map((l) => (
-              <button key={l.id} onClick={() => handleScroll(l.id)} className="text-foreground-muted hover:text-foreground transition-colors">
+              <button 
+                key={l.id} 
+                onClick={() => handleScroll(l.id)} 
+                className="text-foreground-muted hover:text-foreground transition-colors"
+                style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+              >
                 {l.label}
               </button>
             ))}
@@ -41,7 +46,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-3">
             <Link to="/login" className="text-sm text-foreground-muted hover:text-foreground transition-colors">Admin</Link>
-            <Button className="btn-primary" onClick={() => handleScroll("contacto")}>Cotizar ahora</Button>
+            <Button className="btn-primary" onClick={() => handleScroll("cotizar")}>Cotizar ahora</Button>
           </div>
 
           <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu">
@@ -62,7 +67,7 @@ const Navbar = () => {
                 </button>
               ))}
               <Link to="/login" className="text-left text-foreground-muted hover:text-foreground transition-colors">Admin</Link>
-              <Button className="btn-primary" onClick={() => handleScroll("contacto")}>
+              <Button className="btn-primary" onClick={() => handleScroll("cotizar")}>
                 Cotizar ahora
               </Button>
             </div>
